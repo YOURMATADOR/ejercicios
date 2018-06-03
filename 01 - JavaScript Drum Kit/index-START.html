@@ -59,8 +59,31 @@
 
 <script>
 
-window.addEventListener
+window.addEventListener('keyup',tocar,false);
+let teclas = document.querySelectorAll('.key');
+teclas.forEach(element => {
+ element.addEventListener('transitionend',removerClase);
+});
+ 
 
+function tocar(e) {
+
+let sonido = document.querySelector(`audio[data-key = "${e.keyCode}"]`);
+let tecla = document.querySelector(`div.key[data-key = "${e.keyCode}"]`);
+
+ if(!sonido)return; // si no encuentra ningun sonido que tocar 
+
+
+ sonido.currentTime=0;
+ sonido.play();
+tecla.classList.add('playing');
+
+}
+
+function removerClase(e) {
+ if(e.propertyName !== 'transform') return
+ this.classList.remove('playing');
+}
 </script>
 
 
