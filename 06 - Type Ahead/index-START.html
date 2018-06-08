@@ -16,7 +16,63 @@
   </form>
 <script>
 const endpoint = 'https://gist.githubusercontent.com/Miserlou/c5cd8364bf9b2420bb29/raw/2bf258763cdddd704f8ffd3ea9a3e81d25e2c6f6/cities.json';
+let arreglo = [];
+fetch(endpoint).then(e => e.json()).then(a => arreglo.push(...a));
 
+
+function encuentra (buscar,donde) { 
+if(buscar =='')return;
+return donde.filter(i =>{
+ let exprecion = new RegExp(buscar,'gi'); //buscara lo que se ingreso en la barra de busqueda 
+
+return i.city.match(exprecion) || i.state.match(exprecion);
+
+});
+ }
+
+let busqueda = document.querySelector('.search');
+let sugerencias = document.querySelector('.suggestions');
+function mostrarResultado() {
+
+
+let mapear = encuentra(this.value,arreglo);
+ 
+const agregar =mapear.map(e=>{ 
+  let exprecion = new RegExp(this.value,'gi'); //buscara lo que se ingreso en la barra de busqueda
+ let nombre = e.city.replace(exprecion,`<span class="hl">${this.value}</span>`);
+
+ return `
+<li><span>${nombre}, ${e.state}</span></li>`
+
+ }).join(''); //eliminar las comas
+  sugerencias.innerHTML = agregar;
+
+}
+
+
+busqueda.addEventListener('change',mostrarResultado);
+busqueda.addEventListener('keyup',mostrarResultado);
+
+console.log(2 .toString());
+console.log(2..toString() == (2).toString());
+
+let objeto = {};
+console.log(objeto);
+
+var obj = {
+    bar: 1,
+    foo: 2,
+    baz: 3
+};
+obj.bar = undefined;
+obj.foo = null;
+delete obj.baz;
+
+for(var i in obj) {
+    if (obj.hasOwnProperty('bar')) {
+        console.log(i, '' + obj[i]);
+    }
+}
 </script>
   </body>
 </html>

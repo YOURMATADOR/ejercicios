@@ -24,6 +24,9 @@
       display:flex;
       align-items:center;
       border-bottom: 1px solid #F1F1F1;
+      transition: all .5s;
+ transform:scale(0,0);
+
     }
 
     .item:last-child {
@@ -39,6 +42,11 @@
     input[type="checkbox"] {
       margin:20px;
     }
+.mostrar{
+ transform:scale(1,1);
+
+}
+
 
     p {
       margin:0;
@@ -51,7 +59,10 @@
       border-left: 1px solid #D1E2FF;
     }
 
-
+#coordenada{
+  position: fixed;
+  top: 0;
+}
   </style>
    <!--
    The following is a common layout you would see in an email client.
@@ -96,9 +107,79 @@
       <input type="checkbox">
       <p>Don't forget to tweet your result!</p>
     </div>
+<div class="item">
+  <input type="checkbox">
+  <p>Don't forget to tweet your result!</p>
+</div>
+<div class="item">
+  <input type="checkbox">
+  <p>Don't forget to tweet your result!</p>
+</div>
+<div class="item">
+  <input type="checkbox">
+  <p>Don't forget to tweet your result!</p>
+</div>
+<div class="item">
+  <input type="checkbox">
+  <p>Don't forget to tweet your result!</p>
+</div>
+<div class="item">
+  <input type="checkbox">
+  <p>Don't forget to tweet your result!</p>
+</div>
   </div>
-
+<input type="" name="" value="" id ='coordenada'>
 <script>
+  
+let items = document.querySelectorAll('div.item');
+  let texto = document.querySelectorAll('input');
+let bandera = false
+texto.forEach(e => e.addEventListener('click', cambiar));
+let arreglo = [];
+arreglo.push(...texto);
+
+window.addEventListener('scroll',actualizaOff);
+function actualizaOff(e) {
+  coordenada.value = (document.documentElement.clientHeight);
+items.forEach(a=> {
+ if(a.getBoundingClientRect().bottom < document.documentElement.clientHeight ){
+  a.classList.add('mostrar');
+  }
+else{
+ a.classList.toggle('mostrar');
+
+}
+});
+
+  }
+
+
+
+function cambiar(e) {  
+
+
+  if(e.shiftKey && this.checked){
+    final = this;
+   console.log(final);
+   console.log(inicio);
+
+    texto.forEach(element => {
+      if(element.checked){
+       bandera = !bandera;
+      }
+      if(bandera){
+        element.checked = true;
+      }
+    });
+  }
+
+ inicio = this;
+
+}
+
+
+
 </script>
 </body>
 </html>
+

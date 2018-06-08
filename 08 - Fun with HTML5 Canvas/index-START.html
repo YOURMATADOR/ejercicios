@@ -10,10 +10,50 @@
 </script>
 
 <style>
-  html, body {
-    margin:0;
-  }
+canvas{
+  border: 1px solid red;
+}
 </style>
+<script>
+  let continuar = false;
 
+  let camvas = document.querySelector('#draw');
+  camvas.height= window.innerHeight;
+ camvas.width= window.innerWidth;
+
+ let ctx= camvas.getContext('2d');
+
+let inicioX =0;
+let inicioY= 0;
+let color = 0;
+ camvas.addEventListener('mousedown', (e) =>{
+  continuar = true;
+ [inicioX, inicioY] = [e.offsetX, e.offsetY];
+ });
+
+  camvas.addEventListener('mousemove' ,coordenadas);
+ camvas.addEventListener('mouseup', () => continuar = false);
+
+
+  function coordenadas(e) {
+
+console.log(e);
+    
+    if(!continuar) return;
+    color++;
+     ctx.strokeStyle = `hsl(${color},100%,50%)`;
+ ctx.lineJoin = 'round';
+ ctx.lineCap = 'round';
+ ctx.lineWidth = 100;
+    ctx.beginPath();
+ctx.moveTo(inicioX,inicioY);
+ctx.lineTo(e.offsetX,e.offsetY);
+ctx.stroke();
+ [inicioX, inicioY] = [e.offsetX, e.offsetY];
+
+  }
+
+  
+</script>
 </body>
 </html>

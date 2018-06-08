@@ -24,7 +24,7 @@
     .panels {
       min-height:100vh;
       overflow: hidden;
-      
+      display: flex;
     }
 
     .panel {
@@ -42,6 +42,10 @@
       font-size: 20px;
       background-size:cover;
       background-position:center;
+      flex:1;
+      display: flex;
+      flex-direction: column;
+     justify-content: space-between;
     }
 
 
@@ -56,7 +60,19 @@
       width: 100%;
       transition:transform 0.5s;
     }
+.panel > *:first-child {
+transform: translateY(-100%);
 
+}
+.panel > *:last-child{
+  transform: translateY(100%);
+}
+.panel.open-act > *:first-child{
+  transform: translateY(0%);
+}
+.panel.open-act > *:last-child{
+  transform: translateY(0%);
+}
     .panel p {
       text-transform: uppercase;
       font-family: 'Amatic SC', cursive;
@@ -69,6 +85,7 @@
 
     .panel.open {
       font-size:40px;
+      flex:3;
     }
 
   </style>
@@ -104,6 +121,21 @@
 
   <script>
 
+let paneles = document.querySelectorAll('.panel');
+
+paneles.forEach(e => e.addEventListener('click',cambiarClase));
+paneles.forEach(e => e.addEventListener('transitionend',mostrarL));
+function cambiarClase() {
+
+console.log('hola');
+this.classList.toggle('open');
+}
+
+function mostrarL(e) { 
+  if(e.propertyName.includes('flex')) this.classList.toggle('open-act');
+
+
+ }
   </script>
 
 
